@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/rounded_background_item"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="vertical">
+
+         <ImageView
+             android:id="@+id/property_photo"
+             android:layout_width="80dp"
+             android:layout_height="80dp"
+             android:scaleType="centerInside"
+             android:background="@android:color/darker_gray"
+             android:cropToPadding="true">
+
+         </ImageView>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:textStyle="bold"
+             android:padding="4dp"
+             tools:text="@string/property_id_label">
+
+         </TextView>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/list_item_property_id_text_view"
+             android:textStyle="bold"
+             style="?android:listSeparatorTextViewStyle"
+             android:padding="4dp">
+
+         </TextView>
+
+     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="4dp"
+            tools:text="@string/property_name_label">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/list_item_property_name_text_view"
+            android:textStyle="bold"
+            style="?android:listSeparatorTextViewStyle"
+            android:padding="4dp">
+
+        </TextView>
+    </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
