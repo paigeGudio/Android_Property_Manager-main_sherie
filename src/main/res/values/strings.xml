@@ -9,6 +9,12 @@
     <string name="property_availablility_date_label">Property Availability Date: </string>
     <string name="property_edit_property_label">Edit Property Details: </string>
     <string name="edit_property">Edit Property </string>
+    <string name="property_owner_label">Select Owner: </string>
+    <string name="property_owner_text">Choose Owner</string>
+    <string name="property_owner_label_edit">Property Owner: </string>
+    <string name="property_owner_hint">Enter Property Owner: </string>
+    <string name="property_owner_email_label_edit">Property Owner Email: </string>
+    <string name="property_owner_email_hint">Enter Property Owner Email: </string>
 
     <string name="date_picker_title">Property Availability Date:</string>
 

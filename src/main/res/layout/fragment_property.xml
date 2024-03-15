@@ -62,6 +62,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
+        android:text="@string/property_owner_label_edit"
+        style="?android:listSeparatorTextViewStyle"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/text_color_value"
+        android:id="@+id/property_owner_name">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:text="@string/property_owner_email_label_edit"
+        style="?android:listSeparatorTextViewStyle"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/text_color_value"
+        android:id="@+id/property_owner_email">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:text="@string/property_availablility_date_label"
         style="?android:listSeparatorTextViewStyle"
         />
@@ -91,6 +125,24 @@
         android:textColor="@color/button_text_color_selector"
         android:background="@drawable/rounded_buttons"
         android:text="@string/edit_property"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:text="@string/property_owner_label"
+        style="?android:listSeparatorTextViewStyle"
+        />
+
+    <Button android:id="@+id/property_owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/button_text_color_selector"
+        android:background="@drawable/rounded_buttons"
+        android:text="@string/property_owner_text"
         />
 
 </LinearLayout>

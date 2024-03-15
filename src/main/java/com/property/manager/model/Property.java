@@ -15,11 +15,15 @@ public class Property implements Parcelable {
     private String propertyName;
     private String propertyDescription;
     private Date availabilityDate;
-
     private String ownerDetails;
+    private String owner;
+
+    private String ownerEMail;
+
+    private String ownerNumber;
 
 
-  private File mPropertyPhoto;
+    private File mPropertyPhoto;
 
     protected Property(Parcel in) {
         propertyId=UUID.fromString(in.readString());
@@ -102,8 +106,29 @@ public class Property implements Parcelable {
     public void setAvailabilityDate(Date availabilityDate) {
         this.availabilityDate = availabilityDate;
     }
+    public String getOwner() {
+        return owner;
+    }
 
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
+    public String getOwnerEMail() {
+        return ownerEMail;
+    }
+
+    public void setOwnerEMail(String ownerEMail) {
+        this.ownerEMail = ownerEMail;
+    }
+
+    public String getOwnerNumber() {
+        return ownerNumber;
+    }
+
+    public void setOwnerNumber(String ownerNumber) {
+        this.ownerNumber = ownerNumber;
+    }
     public String getPhotoFilename(){
         return "IMG_" + getPropertyId().toString() + ".jpg";
     }

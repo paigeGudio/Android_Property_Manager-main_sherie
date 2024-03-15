@@ -1,13 +1,19 @@
 package com.property.manager.fragments;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,13 +38,18 @@ public class PropertyDetailsFragment extends Fragment {
 
     private TextView propertyDescriptionText;
 
+    private TextView propertyOwnerText;
+
+    private TextView propertyOwnerEmailText;
     private Button availabilityDateBtn;
     private Button editPropertyBtn;
+    private Button mOwnerButton;
 
+    private ActivityResultLauncher<Intent> launcher;
+    public static final int REQUEST_CONTACT = 1;
     public static final String ARG_PROPERTY_ID = "arg_property_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_EDIT = "DialogEdit";
-
     public static final String REQUEST_DATE = "0";
     public static final String REQUEST_EDIT = "1";
     //List<Property> properties;
@@ -82,11 +93,42 @@ public class PropertyDetailsFragment extends Fragment {
         propertyNameText.setText(property.getPropertyName());
         propertyDescriptionText = (TextView) v.findViewById(R.id.property_description);
         propertyDescriptionText.setText(property.getPropertyDescription());
+        propertyOwnerText = (TextView) v.findViewById(R.id.property_owner_name);
+        propertyOwnerText.setText(property.getOwner());
+        propertyOwnerEmailText = (TextView) v.findViewById(R.id.property_owner_email);
+        propertyOwnerEmailText.setText(property.getOwnerEMail());
         availabilityDateBtn = (Button)v.findViewById(R.id.availability_date);
         availabilityDateBtn.setText(property.getAvailabilityDate().toString());
         availabilityDateBtn.setOnClickListener(buttonClick);
         editPropertyBtn = (Button)v.findViewById(R.id.edit_property);
         editPropertyBtn.setOnClickListener(buttonClick);
+
+        mOwnerButton = (Button)v.findViewById(R.id.property_owner);
+        mOwnerButton.setOnClickListener(ownerButtonClick);
+
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == REQUEST_CONTACT) {
+                        Intent data = result.getData();
+                        Uri contactUri = data.getData();
+                        String[] queryFields = new String[] {
+                                ContactsContract.Contacts.DISPLAY_NAME
+                        };
+                        assert contactUri != null;
+                        try (Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null)) {
+                            if (c.getCount() == 0){
+                                return;
+                            }
+
+                            c.moveToFirst();
+                            String owner = c.getString(0);
+                            property.setOwner(owner);
+                            mOwnerButton.setText(owner);
+                        }
+                    }
+                }
+        );
         updateDate();
         return v;
     }
@@ -98,7 +140,17 @@ public class PropertyDetailsFragment extends Fragment {
     public void updatePropertyData(){
         propertyNameText.setText(property.getPropertyName());
         propertyDescriptionText.setText(property.getPropertyDescription());
+        propertyOwnerText.setText(property.getOwner());
+        propertyOwnerEmailText.setText(property.getOwnerEMail());
     }
+
+    private final View.OnClickListener ownerButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            launcher.launch(pickContact);
+        }
+    };
 
 
     private final View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -131,8 +183,12 @@ public class PropertyDetailsFragment extends Fragment {
             }else if (REQUEST_EDIT.equalsIgnoreCase(requestKey)){
                 String propertyName = result.getString(PropertyEditFragment.ARG_PROPERTY_NAME);
                 String propertyDescription = result.getString(PropertyEditFragment.ARG_PROPERTY_DESCRIPTION);
+                String propertyOwnerName = result.getString(PropertyEditFragment.ARG_PROPERTY_OWNER);
+                String propertyOwnerEMail = result.getString(PropertyEditFragment.ARG_PROPERTY_OWNER_EMAIL);
                 property.setPropertyName(propertyName);
                 property.setPropertyDescription(propertyDescription);
+                property.setOwner(propertyOwnerName);
+                property.setOwnerEMail(propertyOwnerEMail);
                 updatePropertyData();
             }
         }
